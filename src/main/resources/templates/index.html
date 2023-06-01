@@ -1,0 +1,14 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/head :: head(title='Home-Filmotokio')"></head>
+<body>
+<header th:replace="fragments/header.html"></header>
+<main>
+    <div style="text-align: center; padding-top: 10px; padding-bottom: 10px;">
+        <h1>Bienvenido a Filmotokio!</h1>
+        <img th:src="@{/images/tokioschool_logo.jpg}" width="500" height="500"/>
+    </div>
+</main>
+</body>
+<footer th:replace="fragments/footer.html"></footer>
+</html>
