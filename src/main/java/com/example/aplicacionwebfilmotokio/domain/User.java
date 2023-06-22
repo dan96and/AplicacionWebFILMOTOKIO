@@ -2,6 +2,7 @@ package com.example.aplicacionwebfilmotokio.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class User {
     private String image;
 
     @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @Column(name = "creation_date")
@@ -47,8 +49,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Score> filmScores;
 
-    @OneToMany(mappedBy = "user")
-    private List<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role roles;
 
     @OneToMany(mappedBy = "user")
     private List<Review> filmsReview;

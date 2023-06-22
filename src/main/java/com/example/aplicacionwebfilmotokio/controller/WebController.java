@@ -1,6 +1,8 @@
 package com.example.aplicacionwebfilmotokio.controller;
 
+import com.example.aplicacionwebfilmotokio.domain.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -10,8 +12,17 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping("/home")
-    public String footer() {
+    @GetMapping("/index")
+    public String index() {
         return "index";
     }
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
+
+        model.addAttribute("user", new User());
+
+        return "registration";
+    }
+
 }

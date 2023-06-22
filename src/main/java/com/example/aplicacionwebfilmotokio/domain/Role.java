@@ -18,7 +18,4 @@ public class Role {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user")
-    private User user;
 }

@@ -1,0 +1,42 @@
+<head th:replace="fragments/head"></head>
+<body>
+<header th:replace="fragments/header"></header>
+<main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
+
+    <h3>Registrar usuario</h3>
+
+    <form action="#" th:action="@{/new-user}" method="post" th:object="${user}" >
+
+        <label type="text" style="padding-top: 10px;">Usuario*</label>
+        <input class="form-control" type="text" style="margin-top: 10px;" th:field="*{username}" required>
+
+        <label type="text" style="padding-top: 10px;">Contraseña*</label>
+        <input class="form-control" type="password" id="inputPassword" style="margin-top: 10px;" th:field="*{password}" required>
+
+        <label type="text" style="padding-top: 10px;">E-mail*</label>
+        <input class="form-control" type="text" id="inputEmail" style="margin-top: 10px;"th:field="*{email}" required>
+
+        <div class="row g-3" style="padding-top: 10px;">
+            <div class="col-sm-6">
+                <label type="text">Nombre</label>
+                <input type="text" class="form-control" style="margin-top: 10px;" th:field="*{name}">
+            </div>
+            <div class="col-sm-6">
+                <label type="text">Apellidos</label>
+                <input type="text" class="form-control" style="margin-top: 10px;" th:field="*{surname}">
+            </div>
+            <div class="col-sm-6">
+                <label type="text">Fecha de nacimiento</label>
+                <input type="date" class="form-control" style="margin-top: 10px;" th:field="*{birthDate}">
+            </div>
+        </div>
+        <div class="text-start" style="padding-top: 20px;">
+            <button type="submit" class="btn btn-warning">Registrar cuenta</button>
+            <a class="btn btn-warning" th:href="@{/index}">Volver</a>
+        </div>
+    </form>
+
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>
