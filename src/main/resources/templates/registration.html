@@ -5,16 +5,25 @@
 
     <h3>Registrar usuario</h3>
 
-    <form action="#" th:action="@{/new-user}" method="post" th:object="${user}" >
+    <div th:if="${registerUserSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
+        <p th:text="${registerUserSuccesfull}" style="margin-bottom: 0;"></p>
+    </div>
+
+    <div th:if="${registerUserError}" class="alert alert-danger" style="margin-top: 20px;">
+        <p th:text="${registerUserError}" style="margin-bottom: 0;"></p>
+    </div>
+
+    <form action="#" th:action="@{/new-user}" method="post" th:object="${user}">
 
         <label type="text" style="padding-top: 10px;">Usuario*</label>
         <input class="form-control" type="text" style="margin-top: 10px;" th:field="*{username}" required>
 
         <label type="text" style="padding-top: 10px;">Contraseña*</label>
-        <input class="form-control" type="password" id="inputPassword" style="margin-top: 10px;" th:field="*{password}" required>
+        <input class="form-control" type="password" id="inputPassword" style="margin-top: 10px;" th:field="*{password}"
+               required>
 
         <label type="text" style="padding-top: 10px;">E-mail*</label>
-        <input class="form-control" type="text" id="inputEmail" style="margin-top: 10px;"th:field="*{email}" required>
+        <input class="form-control" type="text" id="inputEmail" style="margin-top: 10px;" th:field="*{email}" required>
 
         <div class="row g-3" style="padding-top: 10px;">
             <div class="col-sm-6">

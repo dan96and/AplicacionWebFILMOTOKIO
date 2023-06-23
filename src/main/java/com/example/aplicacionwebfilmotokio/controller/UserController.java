@@ -5,9 +5,9 @@ import com.example.aplicacionwebfilmotokio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -16,15 +16,16 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/new-user")
-    public String newUser(@ModelAttribute("user") @DateTimeFormat(pattern = "yyyy-MM-dd") User user, Model model) {
+    public ModelAndView newUser(@ModelAttribute("user") @DateTimeFormat(pattern = "yyyy-MM-dd") User user, ModelAndView modelAndView) {
 
         if (userService.registerUser(user)) {
-            model.addAttribute("registerUser", "Usuario creado correctamente");
+            modelAndView.addObject("registerUserSuccesfull", "Usuario creado correctamente.");
         } else {
-            model.addAttribute("registerUser", "Error al crear el usuario. Vuelva a intentarlo más tarde");
+            modelAndView.addObject("registerUserError", "Error al crear el usuario. Vuelva a intentarlo más tarde.");
         }
 
-        return "ok";
-    }
+        modelAndView.setViewName("registration");
 
+        return modelAndView;
+    }
 }
