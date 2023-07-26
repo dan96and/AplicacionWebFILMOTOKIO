@@ -4,4 +4,5 @@ import com.example.aplicacionwebfilmotokio.domain.User;
 
 public interface UserService {
     Boolean registerUser(User user);
+    User findUserByUsername(String username);
 }

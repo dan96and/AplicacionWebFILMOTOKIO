@@ -35,10 +35,15 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Error al registrar el usuario en la BBDD");
+            System.err.println("Error when registering the user in the database");
             return false;
         }
 
         return true;
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

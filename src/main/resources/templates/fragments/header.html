@@ -1,7 +1,7 @@
 <header class="p-3 bg-dark text-white">
-    <div class="container">
+    <div class="d-flex align-items-center">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+            <a th:href="@{/index}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
                style="padding-right: 10px">
                 <img th:src="@{/images/tokioschool_logo.jpg}" alt="Logo de Filmotokio" width="35" height="35">
             </a>
@@ -12,13 +12,15 @@
                 <li><a href="#" class="nav-link px-2 text-white">Crear persona</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Crear usuario</a></li>
             </ul>
-
-            <div class="text-end">
-                <img th:src="@{/images/user_logo.png}" width="37" height="37" style="margin-right: 10px">
-                <a disabled=disabled type="button" class="btn btn-warning">Cerrar sesión</a>
-                <a class="btn btn-warning" th:href="@{/login}">Inicio de sesión</a>
-                <a class="btn btn-warning" th:href="@{/registration}">Registro</a>
-            </div>
         </div>
+        <div style="align-items: center; margin-top: 12px; position: absolute; right: 20px;">
+            <form method="post" th:action="@{/logout}">
+                <img th:src="@{/images/user_logo.png}" width="37" height="37" style="margin-right: 10px">
+                <input type="submit" class="btn btn-warning" value="Cerrar sesión"/>
+                <input type="submit" class="btn btn-warning" th:href="@{/login}" value="Inicio de sesión"/>
+                <input type="submit" class="btn btn-warning" th:href="@{/registration}" value="Registro"/>
+            </form>
+        </div>
+
     </div>
 </header>
