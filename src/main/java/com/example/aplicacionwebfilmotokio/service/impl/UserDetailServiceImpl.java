@@ -2,6 +2,7 @@ package com.example.aplicacionwebfilmotokio.service.impl;
 
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
@@ -25,7 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             User user = userService.findUserByUsername(username);
 
             if (user == null) {
-                throw new UsernameNotFoundException("Incorrect username or password");
+                log.info("UserDetailsServiceImpl, {}",new UsernameNotFoundException("Incorrect username or password").getMessage());
             }
 
             List<GrantedAuthority> authorities = new ArrayList<>();
