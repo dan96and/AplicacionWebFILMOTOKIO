@@ -30,7 +30,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
             }
 
             List<GrantedAuthority> authorities = new ArrayList<>();
-
             authorities.add(new SimpleGrantedAuthority(user.getRoles().getName()));
 
             return buildUserForAuthentication(user, authorities);
