@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
             log.info("Saving user in the database");
             userRepository.save(user);
         } catch (Exception e) {
-            e.printStackTrace();
             log.warn("Error when registering the user in the database");
             return false;
         }

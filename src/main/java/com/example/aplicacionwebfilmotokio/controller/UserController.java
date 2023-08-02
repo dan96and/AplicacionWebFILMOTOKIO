@@ -25,7 +25,7 @@ public class UserController {
             modelAndView.addObject("registerUserSuccesfull", "Usuario creado correctamente.");
         } else {
             log.warn("The user could not be created.");
-            modelAndView.addObject("registerUserError", "Error al crear el usuario. Vuelva a intentarlo más tarde.");
+            throw new RuntimeException("Error al crear el usuario. Vuelva a intentarlo más tarde");
         }
 
         modelAndView.setViewName("registration");

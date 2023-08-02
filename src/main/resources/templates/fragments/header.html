@@ -13,13 +13,13 @@
                 <li><a href="#" class="nav-link px-2 text-white">Crear usuario</a></li>
             </ul>
         </div>
-        <div style="align-items: center; margin-top: 12px; position: absolute; right: 20px;">
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 12px; position: absolute; right: 20px;">
+            <img th:src="@{/images/user_logo.png}" width="37" height="37" style="margin-right: 10px">
             <form method="post" th:action="@{/logout}">
-                <img th:src="@{/images/user_logo.png}" width="37" height="37" style="margin-right: 10px">
-                <input type="submit" class="btn btn-warning" value="Cerrar sesión"/>
-                <input type="submit" class="btn btn-warning" th:href="@{/login}" value="Inicio de sesión"/>
-                <input type="submit" class="btn btn-warning" th:href="@{/registration}" value="Registro"/>
+                <input type="submit" class="btn btn-warning" value="Cerrar sesión" style="margin-right: 10px"/>
             </form>
+            <a class="btn btn-warning" th:href="@{/login}" style="margin-right: 10px">Inicio de sesión</a>
+            <a class="btn btn-warning" th:href="@{/registration}" style="margin-right: 10px">Registro</a>
         </div>
 
     </div>

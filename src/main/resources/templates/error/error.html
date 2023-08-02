@@ -1,0 +1,17 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+>
+<head th:replace="fragments/head :: head(title='Home-Filmotokio')"></head>
+<body>
+<header th:replace="fragments/header.html"></header>
+<main style="padding-left: 140px; padding-right: 140px; padding-top:30px;">
+    <div class="alert alert-danger" role="alert">
+        <p><strong>Se ha producido un error</strong></p>
+        <p th:text="${message}"></p>
+        <p th:text="${url}"></p>
+        <p><a href="#" onclick="history.back()">Volver</a></p>
+    </div>
+</main>
+</body>
+<footer th:replace="fragments/footer.html"></footer>
+</html>

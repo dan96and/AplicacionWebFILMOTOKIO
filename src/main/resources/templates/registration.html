@@ -9,10 +9,6 @@
         <p th:text="${registerUserSuccesfull}" style="margin-bottom: 0;"></p>
     </div>
 
-    <div th:if="${registerUserError}" class="alert alert-danger" style="margin-top: 20px;">
-        <p th:text="${registerUserError}" style="margin-bottom: 0;"></p>
-    </div>
-
     <form action="#" th:action="@{/new-user}" method="post" th:object="${user}">
 
         <label type="text" style="padding-top: 10px;">Usuario*</label>
