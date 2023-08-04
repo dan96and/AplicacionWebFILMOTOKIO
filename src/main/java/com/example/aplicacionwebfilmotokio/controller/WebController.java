@@ -1,5 +1,6 @@
 package com.example.aplicacionwebfilmotokio.controller;
 
+import com.example.aplicacionwebfilmotokio.domain.Person;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,14 @@ public class WebController {
         model.addAttribute("user", new User());
 
         return "registration";
+    }
+
+    @GetMapping("/new-person")
+    public String newPerson(Model model) {
+
+        model.addAttribute("person", new Person());
+
+        return "new-person";
     }
 
 }

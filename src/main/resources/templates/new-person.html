@@ -1,0 +1,44 @@
+<head th:replace="fragments/head"></head>
+<body>
+<header th:replace="fragments/header"></header>
+<main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
+
+    <h3>Nuevo artista</h3>
+
+    <div th:if="${registerPersonSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
+        <p th:text="${registerPersonSuccesfull}" style="margin-bottom: 0;"></p>
+    </div>
+
+    <form action="#" method="post" th:object="${person}">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-4" style ="margin-left: -10px;">
+                    <label type="text" style="padding-top: 10px;">Nombre*</label>
+                    <input class="form-control" type="text" style="margin-top: 10px;" required>
+                </div>
+                <div class="col-md-4">
+                    <label type="text" style="padding-top: 10px;">Apellidos*</label>
+                    <input class="form-control" type="text" style="margin-top: 10px;" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="profesion" style="margin-top: 10px;">Tipos de trabajo*</label>
+                    <select class="form-select" id="profesion" style="margin-top: 10px;" required>
+                        <option value="guionista">Guionista</option>
+                        <option value="musico">Músico</option>
+                        <option value="fotografo">Fotógrafo</option>
+                        <option value="actor">Actor</option>
+                        <option value="director">Director</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="text-start" style="padding-top: 20px;">
+            <button type="submit" class="btn btn-warning" disabled>Registrar persona</button>
+            <a class="btn btn-warning" href="#" onclick="history.back()">Volver</a>
+        </div>
+
+    </form>
+
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>
