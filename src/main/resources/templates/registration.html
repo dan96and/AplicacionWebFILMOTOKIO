@@ -9,7 +9,7 @@
         <p th:text="${registerUserSuccesfull}" style="margin-bottom: 0;"></p>
     </div>
 
-    <form action="#" th:action="@{/new-user}" method="post" th:object="${user}">
+    <form th:action="@{/new-user}" method="post" th:object="${user}">
 
         <label type="text" style="padding-top: 10px;">Usuario*</label>
         <input class="form-control" type="text" style="margin-top: 10px;" th:field="*{username}" required>

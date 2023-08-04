@@ -21,10 +21,8 @@ public class UserController {
     public ModelAndView newUser(@ModelAttribute("user") @DateTimeFormat(pattern = "yyyy-MM-dd") User user, ModelAndView modelAndView) {
 
         if (userService.registerUser(user)) {
-            log.info("The user has been registered successfully.");
             modelAndView.addObject("registerUserSuccesfull", "Usuario creado correctamente.");
         } else {
-            log.warn("The user could not be created.");
             throw new RuntimeException("Error al crear el usuario. Vuelva a intentarlo más tarde");
         }
 
