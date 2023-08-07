@@ -1,0 +1,98 @@
+<head th:replace="fragments/head"></head>
+<body>
+<header th:replace="fragments/header"></header>
+<div class="container" style="padding-top:30px; padding-bottom: 60px">
+    <h3>Nueva película</h3>
+    <form method="post" th:object="${film}">
+
+        <div class="row">
+            <!-- Primera columna -->
+            <div class="col-md-4">
+
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="directores" class="form-label">Directores</label>
+                    <select class="form-control" size=4 id="directores" required>
+                        <option value="musico1">Director 1</option>
+                        <option value="musico2">Director 2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="musicos" class="form-label">Músicos</label>
+                    <select class="form-select" size=4 id="musicos" required>
+                        <option value="musico1">Músico 1</option>
+                        <option value="musico2">Músico 2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cartel" class="form-label">Cartel</label>
+                    <input type="file" class="form-control" id="cartel" accept="image/*" required>
+                </div>
+
+                <div class="text-start" style="padding-top: 20px;">
+                    <button type="submit" class="btn btn-warning" disabled>Registrar película</button>
+                    <a class="btn btn-warning" href="#" onclick="history.back()">Volver</a>
+                </div>
+
+            </div>
+
+            <!-- Segunda columna -->
+            <div class="col-md-4">
+
+                <div class="mb-3">
+                    <label for="anio" class="form-label">Año</label>
+                    <input type="number" class="form-control" id="anio" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="guionistas" class="form-label">Guionistas</label>
+                    <select class="form-select" size="4" id="guionistas" required>
+                        <option value="guionista1">Guionista 1</option>
+                        <option value="guionista2">Guionista 2</option>
+                        <!-- Agregar más opciones de guionistas aquí -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fotografo" class="form-label">Fotógrafo</label>
+                    <select class="form-select" size="4" id="fotografo" required>
+                        <option value="fotografo1">Fotógrafo 1</option>
+                        <option value="fotografo2">Fotógrafo 2</option>
+                        <!-- Agregar más opciones de fotógrafos aquí -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tercera columna -->
+            <div class="col-md-4">
+
+                <div class="mb-3">
+                    <label for="duracion" class="form-label">Duración (.min)</label>
+                    <input type="text" class="form-control" id="duracion" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="actores" class="form-label">Actores</label>
+                    <select class="form-select" size="4" id="actores" required>
+                        <option value="actor1">Actor 1</option>
+                        <option value="actor2">Actor 2</option>
+                        <!-- Agregar más opciones de actores aquí -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="sinopsis" class="form-label">Sinopsis</label>
+                    <textarea class="form-control" id="sinopsis" rows="5" required></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<footer th:replace="fragments/footer"></footer>
+</body>
