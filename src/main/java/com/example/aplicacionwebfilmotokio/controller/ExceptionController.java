@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.SizeLimitExceededException;
-
 @ControllerAdvice
 public class ExceptionController {
 
@@ -17,7 +15,6 @@ public class ExceptionController {
         modelAndView.addObject("message", re.getMessage());
         modelAndView.addObject("url", request.getRequestURL().toString());
         modelAndView.setViewName("error/error");
-        re.printStackTrace();
         return modelAndView;
     }
 

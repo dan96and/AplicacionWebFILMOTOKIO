@@ -61,4 +61,12 @@ public class WebController {
         return "new-film";
     }
 
+    @GetMapping("/search-film")
+    public String searchFilm(Model model) {
+
+        model.addAttribute("film", new Film());
+
+        return "search-film";
+    }
+
 }
