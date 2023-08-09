@@ -11,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,20 +60,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Film> films;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", image='" + image + '\'' +
-                ", birthDate=" + birthDate +
-                ", creationDate=" + creationDate +
-                ", lastLogin=" + lastLogin +
-                ", active=" + active +
-                '}';
-    }
 }

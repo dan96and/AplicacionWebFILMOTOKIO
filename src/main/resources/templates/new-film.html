@@ -3,40 +3,44 @@
 <header th:replace="fragments/header"></header>
 <div class="container" style="padding-top:30px; padding-bottom: 60px">
     <h3>Nueva película</h3>
-    <form method="post" th:object="${film}">
+    <hr>
+    <div th:if="${newFilmSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
+        <p th:text="${newFilmSuccesfull}" style="margin-bottom: 0;"></p>
+    </div>
+    <form method="post" th:action="@{/new-film}" th:object="${film}" enctype="multipart/form-data">
 
         <div class="row">
             <!-- Primera columna -->
             <div class="col-md-4">
 
                 <div class="mb-3">
-                    <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" required>
+                    <b><label for="titulo" class="form-label">Título</label></b>
+                    <input type="text" class="form-control" id="titulo" th:field="*{title}" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="directores" class="form-label">Directores</label>
-                    <select class="form-control" size=4 id="directores" required>
-                        <option value="musico1">Director 1</option>
-                        <option value="musico2">Director 2</option>
+                    <b><label for="directores" class="form-label">Directores</label></b>
+                    <select class="form-control" multiple size=4 id="directores" th:field="*{directors}" required>
+                        <option th:each="director: ${director}" th:value="${director.id}"
+                                th:text="${director.name+' '+director.surname}"></option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="musicos" class="form-label">Músicos</label>
-                    <select class="form-select" size=4 id="musicos" required>
-                        <option value="musico1">Músico 1</option>
-                        <option value="musico2">Músico 2</option>
+                    <b><label for="musicos" class="form-label">Músicos</label></b>
+                    <select class="form-select" multiple size=4 id="musicos" th:field="*{musicians}" required>
+                        <option th:each="musician: ${musician}" th:value="${musician.id}"
+                                th:text="${musician.name+' '+musician.surname}"></option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="cartel" class="form-label">Cartel</label>
-                    <input type="file" class="form-control" id="cartel" accept="image/*" required>
+                    <b><label for="cartel" class="form-label">Cartel</label></b>
+                    <input type="file" name="cartel" class="form-control" id="cartel" accept="image/jpeg, image/png" required>
                 </div>
 
                 <div class="text-start" style="padding-top: 20px;">
-                    <button type="submit" class="btn btn-warning" disabled>Registrar película</button>
+                    <button type="submit" class="btn btn-warning">Registrar película</button>
                     <a class="btn btn-warning" href="#" onclick="history.back()">Volver</a>
                 </div>
 
@@ -46,25 +50,25 @@
             <div class="col-md-4">
 
                 <div class="mb-3">
-                    <label for="anio" class="form-label">Año</label>
-                    <input type="number" class="form-control" id="anio" required>
+                    <b><label for="anio" class="form-label">Año</label></b>
+                    <input type="number" class="form-control" id="anio" th:field="*{year}" min="1000" max="9999"
+                           required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="guionistas" class="form-label">Guionistas</label>
-                    <select class="form-select" size="4" id="guionistas" required>
-                        <option value="guionista1">Guionista 1</option>
-                        <option value="guionista2">Guionista 2</option>
+                    <b><label for="guionistas" class="form-label">Guionistas</label></b>
+                    <select class="form-select" multiple size="4" id="guionistas" th:field="*{screenwriters}" required>
+                        <option th:each="screenwriter: ${screenwriter}" th:value="${screenwriter.id}"
+                                th:text="${screenwriter.name+' '+screenwriter.surname}"></option>
                         <!-- Agregar más opciones de guionistas aquí -->
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="fotografo" class="form-label">Fotógrafo</label>
-                    <select class="form-select" size="4" id="fotografo" required>
-                        <option value="fotografo1">Fotógrafo 1</option>
-                        <option value="fotografo2">Fotógrafo 2</option>
-                        <!-- Agregar más opciones de fotógrafos aquí -->
+                    <b><label for="fotografo" class="form-label">Fotógrafo</label></b>
+                    <select class="form-select" multiple size="4" id="fotografo" th:field="*{photographers}" required>
+                        <option th:each="photographer: ${photographer}" th:value="${photographer.id}"
+                                th:text="${photographer.name +' '+ photographer.surname}"></option>
                     </select>
                 </div>
             </div>
@@ -73,22 +77,23 @@
             <div class="col-md-4">
 
                 <div class="mb-3">
-                    <label for="duracion" class="form-label">Duración (.min)</label>
-                    <input type="text" class="form-control" id="duracion" required>
+                    <b><label for="duracion" class="form-label">Duración (.min)</label></b>
+                    <input type="number" class="form-control" id="duracion" min="1" max="999" th:field="*{duration}"
+                           required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="actores" class="form-label">Actores</label>
-                    <select class="form-select" size="4" id="actores" required>
-                        <option value="actor1">Actor 1</option>
-                        <option value="actor2">Actor 2</option>
+                    <b><label for="actores" class="form-label">Actores</label></b>
+                    <select class="form-select" multiple size="4" id="actores" th:field="*{actors}" required>
+                        <option th:each="actor: ${actor}" th:value="${actor.id}"
+                                th:text="${actor.name +' '+ actor.surname}"></option>
                         <!-- Agregar más opciones de actores aquí -->
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="sinopsis" class="form-label">Sinopsis</label>
-                    <textarea class="form-control" id="sinopsis" rows="5" required></textarea>
+                    <b><label for="sinopsis" class="form-label">Sinopsis</label></b>
+                    <textarea class="form-control" id="sinopsis" rows="5" th:field="*{synopsis}" required></textarea>
                 </div>
             </div>
         </div>

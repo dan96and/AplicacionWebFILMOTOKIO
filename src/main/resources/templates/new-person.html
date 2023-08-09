@@ -23,11 +23,11 @@
                 <div class="col-md-4">
                     <label for="profesion" style="margin-top: 10px;">Tipos de trabajo*</label>
                     <select class="form-select" id="profesion" style="margin-top: 10px;" th:field="*{type}" required>
-                        <option value="GUIONISTA">Guionista</option>
-                        <option value="MUSICO">Músico</option>
-                        <option value="FOTOGRAFO">Fotógrafo</option>
-                        <option value="ACTOR">Actor</option>
-                        <option value="DIRECTOR">Director</option>
+                        <option th:value="GUIONISTA">Guionista</option>
+                        <option th:value="MUSICO">Músico</option>
+                        <option th:value="FOTOGRAFO">Fotógrafo</option>
+                        <option th:value="ACTOR">Actor</option>
+                        <option th:value="DIRECTOR">Director</option>
                     </select>
                 </div>
             </div>

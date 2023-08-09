@@ -1,9 +1,12 @@
-package com.example.aplicacionwebfilmotokio.security;
+package com.example.aplicacionwebfilmotokio.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -34,4 +37,16 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    public static UserDetails getAuthenticatedUserDetails() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                return (UserDetails) principal;
+            }
+        }
+        throw new RuntimeException("Necesitas estar logueado para poder realizar esta acción");
+    }
 }

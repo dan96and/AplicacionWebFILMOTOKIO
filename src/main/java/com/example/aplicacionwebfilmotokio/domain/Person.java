@@ -25,10 +25,6 @@ public class Person {
 
     private TypePersonEnum type;
 
-    @ManyToOne
-    @JoinColumn(name = "person")
-    Film film;
-
     @ManyToMany(mappedBy = "actors")
     private List<Film> filmsActor;
 
