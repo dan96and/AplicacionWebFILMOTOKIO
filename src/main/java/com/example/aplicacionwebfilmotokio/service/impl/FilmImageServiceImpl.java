@@ -21,7 +21,7 @@ public class FilmImageServiceImpl implements FilmImageService {
         try {
             Path pathFinal = Paths.get("src/main/resources/static/images/cover page/" + archive.getOriginalFilename());
             Files.write(pathFinal, archive.getBytes());
-            film.setPoster(pathFinal.toString());
+            film.setPoster(pathFinal.toString().substring(25));
         } catch (IOException e) {
             throw new RuntimeException("No se ha introducido ninguna imagen. Vuelva a intentarlo");
         }

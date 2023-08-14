@@ -1,6 +1,5 @@
 package com.example.aplicacionwebfilmotokio.controller;
 
-import org.springframework.ui.Model;
 import com.example.aplicacionwebfilmotokio.config.SecurityConfig;
 import com.example.aplicacionwebfilmotokio.domain.Film;
 import com.example.aplicacionwebfilmotokio.domain.Person;
@@ -13,6 +12,7 @@ import com.example.aplicacionwebfilmotokio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,4 +57,10 @@ public class FilmController {
         modelAndView.setViewName("new-film");
         return modelAndView;
     }
+
+    @PostMapping("/search-film")
+    public String searchFilm(@RequestParam String title) {
+        return "redirect:/searched-film/" + title;
+    }
+
 }

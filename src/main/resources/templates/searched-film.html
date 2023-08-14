@@ -1,0 +1,24 @@
+<head th:replace="fragments/head"></head>
+<body>
+<header th:replace="fragments/header"></header>
+<main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
+
+    <h3>Resultados de la busqueda</h3>
+    <hr>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-3" th:each="film : ${films}" style="margin-bottom: 20px;">
+                <div th:value="${film.id}" class="card">
+                    <img class="card-img-top" th:src="${film.poster}" style="width: 100%; height: 350px;">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${film.title}">Card title</h5>
+                        <a href="#" class="btn btn-primary">Ver película</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>

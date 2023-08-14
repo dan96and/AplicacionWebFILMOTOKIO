@@ -1,3 +1,4 @@
+
 package com.example.aplicacionwebfilmotokio.config;
 
 import org.springframework.context.annotation.Bean;
@@ -20,7 +21,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests((request) -> request
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/login", "/new-user", "/registration", "/index", "/new-person", "/new-film", "/search-film").permitAll())
+                        .requestMatchers("/login", "/new-user", "/registration", "/index", "/new-person", "/new-film", "/search-film", "/searched-film/{title}").permitAll())
 
                 .formLogin((form) -> form
                         .loginPage("/login")

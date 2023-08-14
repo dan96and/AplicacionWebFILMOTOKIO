@@ -5,22 +5,23 @@
 
     <h3>Buscar película</h3>
     <hr>
-    <form method="post">
-        <div class="container mt-3">
-            <div class="row">
-                <div class="col-md-4" style="margin-left: -10px;">
-                    <b><label type="text" style="padding-top: 10px;">Título</label></b>
-                    <input class="form-control" type="text" style="margin-top: 10px;">
-                </div>
+
+    <form method="post" th:action="@{/search-film}">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-4" style="margin-left: -10px;">
+                <b><label type="text" style="padding-top: 10px;">Título</label></b>
+                <input class="form-control" id="title" type="text" name="title"
+                       style="margin-top: 10px;">
             </div>
         </div>
-        <div class="text-start" style="padding-top: 20px;">
-            <button type="submit" class="btn btn-warning">Buscar película</button>
-            <a class="btn btn-warning" href="#" onclick="history.back()">Volver</a>
-        </div>
+    </div>
+    <div class="text-start" style="padding-top: 20px;">
+        <button type="submit" class="btn btn-warning">Buscar película</button>
+        <a class="btn btn-warning" href="#" onclick="history.back()">Volver</a>
+    </div>
 
     </form>
-
 </main>
 <footer th:replace="fragments/footer"></footer>
 </body>
