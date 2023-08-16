@@ -8,5 +8,10 @@ import java.util.List;
 public interface FilmService {
     Boolean saveFilm(Film film, User user);
 
-    List<Film> searchFilmsByTitle (String tiltle);
+    List<Film> searchFilmsByTitle(String tiltle);
+
+    List<Film> searchAllFilms();
+
+    Film searchFilmById(Long id);
+
 }

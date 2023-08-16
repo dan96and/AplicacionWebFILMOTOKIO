@@ -5,14 +5,19 @@
 
     <h3>Resultados de la busqueda</h3>
     <hr>
+
     <div class="container mt-3">
-        <div class="row">
+        <div th:if="${films.size() == 0}" class="alert alert-primary" style="margin-top: 20px;">
+            <p style="margin-bottom: 0;">No se han encontrado resultados para la búsqueda</p>
+        </div>
+        <div class="row" th:else>
             <div class="col-md-3" th:each="film : ${films}" style="margin-bottom: 20px;">
                 <div th:value="${film.id}" class="card">
-                    <img class="card-img-top" th:src="${film.poster}" style="width: 100%; height: 350px;">
+                    <img class="card-img-top" th:src="@{/image/{titleImage} (titleImage=${film.poster})}"
+                         style="width: 100%; height: 350px;">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${film.title}">Card title</h5>
-                        <a href="#" class="btn btn-primary">Ver película</a>
+                        <a th:href="@{/film/{id}(id=${film.id})}" class="btn btn-primary">Ver película</a>
                     </div>
                 </div>
             </div>

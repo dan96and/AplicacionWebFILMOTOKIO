@@ -4,6 +4,7 @@ import com.example.aplicacionwebfilmotokio.domain.Film;
 import com.example.aplicacionwebfilmotokio.domain.Person;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.enums.TypePersonEnum;
+import com.example.aplicacionwebfilmotokio.service.FilmImageService;
 import com.example.aplicacionwebfilmotokio.service.FilmService;
 import com.example.aplicacionwebfilmotokio.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,6 +22,9 @@ public class WebController {
 
     @Autowired
     FilmService filmService;
+
+    @Autowired
+    FilmImageService filmImageService;
 
     @GetMapping("/login")
     public String login() {
@@ -67,15 +69,36 @@ public class WebController {
         return "search-film";
     }
 
-
     @GetMapping("/searched-film/{title}")
     public String searchedFilm(@PathVariable String title, Model model) {
 
-        List<Film> listFilm = filmService.searchFilmsByTitle(title);
+        List<Film> listFilm;
+
+        if (title.equals("all")) {
+            listFilm = filmService.searchAllFilms();
+        } else {
+            listFilm = filmService.searchFilmsByTitle(title);
+        }
 
         model.addAttribute("films", listFilm);
 
         return "searched-film";
 
+    }
+
+    @GetMapping("/film/{id}")
+    public String showFilmById(@PathVariable Long id, Model model) {
+
+        Film film = filmService.searchFilmById(id);
+
+        model.addAttribute("film", film);
+
+        model.addAttribute("directors", film.getDirectors());
+        model.addAttribute("screenwriters", film.getScreenwriters());
+        model.addAttribute("actors", film.getActors());
+        model.addAttribute("musicians", film.getMusicians());
+        model.addAttribute("photographers", film.getPhotographers());
+
+        return "film";
     }
 }

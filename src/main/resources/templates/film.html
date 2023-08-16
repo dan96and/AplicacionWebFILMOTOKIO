@@ -1,0 +1,106 @@
+<head th:replace="fragments/head"></head>
+<body>
+<header th:replace="fragments/header"></header>
+<main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
+    <div class="container" style="border: 2px solid #333; padding: 20px;">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <h3 th:text="${film.title +' - '+film.scores}"></h3>
+
+                <b><label>Año: </label></b>
+                <label th:text="${film.year}"></label>
+
+                <div style="padding-top: 2px">
+                    <b><label>Director: </label></b>
+                    <label th:each="director : ${directors}"
+                           th:text="${director.name+' '+director.surname+ '.&nbsp'}"></label>
+                </div>
+
+                <div style="padding-top: 2px">
+                    <b><label>Guionista: </label></b>
+                    <label th:each="screenwriter : ${screenwriters}"
+                           th:text="${screenwriter.name+' '+screenwriter.surname+ '.&nbsp'}"></label>
+                </div>
+
+                <div style="padding-top: 2px">
+                    <b><label>Músico: </label></b>
+                    <label th:each="musician : ${musicians}"
+                           th:text="${musician.name+' '+musician.surname+ '.&nbsp'}"></label>
+                </div>
+
+                <div style="padding-top: 2px">
+                    <b><label>Fotografía: </label></b>
+                    <label th:each="photographer : ${photographers}"
+                           th:text="${photographer.name+' '+photographer.surname+ '.&nbsp'}"></label>
+                </div>
+
+                <div style="padding-top: 2px">
+                    <b><label>Actor: </label></b>
+                    <label th:each="actor : ${actors}" th:text="${actor.name+' '+actor.surname+ '.&nbsp'}"></label>
+                </div>
+
+                <div style="padding-top: 2px">
+                    <label th:text="${film.synopsis}"></label>
+                </div>
+
+                <div class="button-group" style="padding-top: 2px">
+                    <label>
+                        <input type="radio" name="numero" value="1"> 1
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="2"> 2
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="3"> 3
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="4"> 4
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="5"> 5
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="6"> 6
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="7"> 7
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="8"> 8
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="9"> 9
+                    </label>
+                    <label>
+                        <input type="radio" name="numero" value="10"> 10
+                    </label>
+                </div>
+                <button style="margin-top: 4px" type="submit" class="btn btn-warning">Puntuar</button>
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <img th:src="@{/image/{titleImage} (titleImage=${film.poster})}" style="height: 300px; width: 200px; ">
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="border: 2px solid #333; padding: 20px; margin-top: 10px">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Añadir crítica</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Título">
+                </div>
+                <div class="form-group" style="padding-top: 8px">
+                    <textarea maxlength="255" rows="3" class="form-control" placeholder="Review"></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning" style="margin-top: 8px">Realizar review</button>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>

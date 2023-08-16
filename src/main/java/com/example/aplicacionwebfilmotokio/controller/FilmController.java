@@ -10,12 +10,13 @@ import com.example.aplicacionwebfilmotokio.service.FilmService;
 import com.example.aplicacionwebfilmotokio.service.PersonService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,7 +61,19 @@ public class FilmController {
 
     @PostMapping("/search-film")
     public String searchFilm(@RequestParam String title) {
+        if(title.trim().equals("")){
+            title = "all";
+        }
         return "redirect:/searched-film/" + title;
     }
 
+    @GetMapping("/image/{titleImage}")
+    public ResponseEntity<Resource> loadImage(@PathVariable String titleImage) {
+
+        Resource resource = filmImageService.loadImage(titleImage);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource);
+    }
 }

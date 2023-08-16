@@ -12,7 +12,7 @@
     <form th:action="@{/new-person}" method="post" th:object="${person}">
         <div class="container mt-3">
             <div class="row">
-                <div class="col-md-4" style ="margin-left: -10px;">
+                <div class="col-md-4" style="margin-left: -10px;">
                     <label type="text" style="padding-top: 10px;">Nombre*</label>
                     <input class="form-control" type="text" style="margin-top: 10px;" th:field="*{name}" required>
                 </div>
