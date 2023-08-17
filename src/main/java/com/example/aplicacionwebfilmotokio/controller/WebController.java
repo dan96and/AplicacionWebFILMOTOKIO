@@ -1,7 +1,9 @@
 package com.example.aplicacionwebfilmotokio.controller;
 
+import com.example.aplicacionwebfilmotokio.config.SecurityConfig;
 import com.example.aplicacionwebfilmotokio.domain.Film;
 import com.example.aplicacionwebfilmotokio.domain.Person;
+import com.example.aplicacionwebfilmotokio.domain.Score;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.enums.TypePersonEnum;
 import com.example.aplicacionwebfilmotokio.service.FilmImageService;
@@ -88,7 +90,18 @@ public class WebController {
 
     @GetMapping("/film/{id}")
     public String showFilmById(@PathVariable Long id, Model model) {
+        showFilmPage(id, model);
+        return "film";
+    }
 
+    @GetMapping("/film/{id}/succesfull")
+    public String showFilmByIdCriticSucces(@PathVariable Long id, Model model) {
+        model.addAttribute("registerPersonSuccesfull", "La critica se ha agregado correctamente");
+        showFilmPage(id, model);
+        return "film";
+    }
+
+    private void showFilmPage(Long id, Model model) {
         Film film = filmService.searchFilmById(id);
 
         model.addAttribute("film", film);
@@ -99,6 +112,27 @@ public class WebController {
         model.addAttribute("musicians", film.getMusicians());
         model.addAttribute("photographers", film.getPhotographers());
 
-        return "film";
+        List<Score> listScore = film.getScores();
+        for (Score score : listScore) {
+            if (score.getUser().getUsername().equals(SecurityConfig.getAuthenticatedUserDetails().getUsername())) {
+                model.addAttribute("userWithScore", true);
+                break;
+            } else {
+                model.addAttribute("userWithScore", false);
+            }
+        }
+
+        float scoreMedia = 0;
+        if (!listScore.isEmpty()) {
+            for (Score score : listScore) {
+                scoreMedia = score.getValue() + scoreMedia;
+            }
+        }
+
+        if (scoreMedia > 0) {
+            scoreMedia = scoreMedia / listScore.size();
+        }
+
+        model.addAttribute("scoreMedia", scoreMedia);
     }
 }

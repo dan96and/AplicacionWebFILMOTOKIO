@@ -61,7 +61,7 @@ public class FilmController {
 
     @PostMapping("/search-film")
     public String searchFilm(@RequestParam String title) {
-        if(title.trim().equals("")){
+        if (title.trim().equals("")) {
             title = "all";
         }
         return "redirect:/searched-film/" + title;

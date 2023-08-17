@@ -2,13 +2,18 @@
 <body>
 <header th:replace="fragments/header"></header>
 <main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
+
+    <div th:if="${registerPersonSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
+        <p th:text="${registerPersonSuccesfull}" style="margin-bottom: 0;"></p>
+    </div>
+
     <div class="container" style="border: 2px solid #333; padding: 20px;">
 
         <div class="row">
 
             <div class="col-md-6">
 
-                <h3 th:text="${film.title +' - '+film.scores}"></h3>
+                <h3 th:text="${film.title +' ('+scoreMedia+')'}"></h3>
 
                 <b><label>Año: </label></b>
                 <label th:text="${film.year}"></label>
@@ -45,40 +50,43 @@
                 <div style="padding-top: 2px">
                     <label th:text="${film.synopsis}"></label>
                 </div>
-
-                <div class="button-group" style="padding-top: 2px">
-                    <label>
-                        <input type="radio" name="numero" value="1"> 1
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="2"> 2
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="3"> 3
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="4"> 4
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="5"> 5
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="6"> 6
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="7"> 7
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="8"> 8
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="9"> 9
-                    </label>
-                    <label>
-                        <input type="radio" name="numero" value="10"> 10
-                    </label>
+                <div th:unless="${userWithScore} ">
+                    <form th:action="@{/add-score/{id} (id=${film.id})}" method="post">
+                        <div class="button-group" style="padding-top: 2px">
+                            <label>
+                                <input type="radio" name="number" value="1"> 1
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="2"> 2
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="3"> 3
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="4"> 4
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="5"> 5
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="6"> 6
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="7"> 7
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="8"> 8
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="9"> 9
+                            </label>
+                            <label>
+                                <input type="radio" name="number" value="10"> 10
+                            </label>
+                        </div>
+                        <button style="margin-top: 4px" type="submit" class="btn btn-warning">Puntuar</button>
+                    </form>
                 </div>
-                <button style="margin-top: 4px" type="submit" class="btn btn-warning">Puntuar</button>
             </div>
             <div class="col-md-6" style="text-align: center">
                 <img th:src="@{/image/{titleImage} (titleImage=${film.poster})}" style="height: 300px; width: 200px; ">
