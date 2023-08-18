@@ -19,18 +19,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-
     @Override
     public Boolean registerUser(User user) {
 
         user.setPassword(bCryp.encode(user.getPassword()));
         user.setCreationDate(LocalDate.now());
         user.setActive(true);
-
-        Role role = roleRepository.getRoleByName("USER");
-        user.setRoles(role);
 
         try {
             log.info("Saving user in the database");

@@ -1,4 +1,10 @@
-<head th:replace="fragments/head"></head>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head
+        th:replace="fragments/head" ></head>
 <body>
 <header th:replace="fragments/header"></header>
 <main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
@@ -22,18 +28,30 @@
         <input class="form-control" type="text" id="inputEmail" style="margin-top: 10px;" th:field="*{email}" required>
 
         <div class="row g-3" style="padding-top: 10px;">
+
             <div class="col-sm-6">
                 <label type="text">Nombre</label>
                 <input type="text" class="form-control" style="margin-top: 10px;" th:field="*{name}">
             </div>
+
             <div class="col-sm-6">
                 <label type="text">Apellidos</label>
                 <input type="text" class="form-control" style="margin-top: 10px;" th:field="*{surname}">
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-6" >
                 <label type="text">Fecha de nacimiento</label>
                 <input type="date" class="form-control" style="margin-top: 10px;" th:field="*{birthDate}">
             </div>
+
+            <div class="col-sm-6" sec:authorize="hasAuthority('ADMIN')" >
+                <label type="text">Role</label>
+                <select type="for" class="form-control" style="margin-top: 10px;" name="role">
+                    <option th:value="USER">User</option>
+                    <option th:value="ADMIN">Admin</option>
+                </select>
+            </div>
+
         </div>
         <div class="text-start" style="padding-top: 20px;">
             <button type="submit" class="btn btn-warning">Registrar cuenta</button>
