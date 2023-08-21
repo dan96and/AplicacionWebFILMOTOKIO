@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 @Service
 @Slf4j
 public class FilmImageServiceImpl implements FilmImageService {
-    private static String uploads = "src/main/resources/static/images/cover page/";
+    private static final String uploads = "src/main/resources/static/images/cover page/";
 
     @Override
     public Film saveImage(MultipartFile archive, Film film) {
@@ -28,8 +28,9 @@ public class FilmImageServiceImpl implements FilmImageService {
             film.setPoster(archive.getOriginalFilename());
             return film;
         } catch (IOException e) {
-            throw new RuntimeException("No se ha introducido ninguna imagen. Vuelva a intentarlo");
+            log.warn("No se ha introducido ninguna imagen");
         }
+        return null;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class FilmImageServiceImpl implements FilmImageService {
             Path path = Paths.get(uploads + titleResource);
             return new UrlResource(path.toUri());
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al cargar la pelicula. Vuelva a intentarlo más tarde.");
         }
     }
 }

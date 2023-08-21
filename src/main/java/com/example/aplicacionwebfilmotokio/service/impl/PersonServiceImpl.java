@@ -38,6 +38,7 @@ public class PersonServiceImpl implements PersonService {
             listPerson = personRepository.findAll();
         } catch (Exception e) {
             log.warn("Error returning persons from the database");
+            return null;
         }
         return listPerson;
     }

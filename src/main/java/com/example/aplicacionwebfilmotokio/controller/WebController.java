@@ -82,6 +82,10 @@ public class WebController {
             listFilm = filmService.searchFilmsByTitle(title);
         }
 
+        if (listFilm == null) {
+            throw new RuntimeException("Error al mostrar las películas. Vuelva a intentarlo más tarde");
+        }
+
         model.addAttribute("films", listFilm);
 
         return "searched-film";
@@ -102,7 +106,12 @@ public class WebController {
     }
 
     private void showFilmPage(Long id, Model model) {
+
         Film film = filmService.searchFilmById(id);
+
+        if(film == null){
+            throw new RuntimeException("Error al mostrar la pelicula. Intentelo más tarde.");
+        }
 
         model.addAttribute("film", film);
 

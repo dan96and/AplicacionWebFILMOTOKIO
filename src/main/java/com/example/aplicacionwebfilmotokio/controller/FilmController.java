@@ -43,9 +43,19 @@ public class FilmController {
 
         film = filmImageService.saveImage(archive, film);
 
-        filmService.saveFilm(film, user);
+        if (film == null) {
+            throw new RuntimeException("No se ha introducido ninguna imagen.");
+        }
+
+        if (!filmService.saveFilm(film, user)) {
+            throw new RuntimeException("Error al guardar la pelicula. Intentelo más tarde.");
+        }
 
         List<Person> listPerson = personService.allPerson();
+
+        if(listPerson == null){
+            throw new RuntimeException("Error al mostrar la lista de personas. Intentelo más tarde.");
+        }
 
         model.addAttribute("director", listPerson.stream().filter(person -> person.getType().equals(TypePersonEnum.DIRECTOR)));
         model.addAttribute("musician", listPerson.stream().filter(person -> person.getType().equals(TypePersonEnum.MUSICO)));
@@ -61,7 +71,7 @@ public class FilmController {
 
     @PostMapping("/search-film")
     public String searchFilm(@RequestParam String title) {
-        if (title.trim().equals("")) {
+        if (title.trim().isEmpty()) {
             title = "all";
         }
         return "redirect:/searched-film/" + title;

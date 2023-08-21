@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -39,19 +38,28 @@ public class FilmServiceImpl implements FilmService {
         try {
             return filmRepository.searchFilmsByTitleContaining(title);
         } catch (Exception e) {
-            log.warn("Error show the films in the database");
+            log.warn("Error show the films by title in the database");
+            return null;
         }
-
-        return null;
     }
 
     @Override
     public List<Film> searchAllFilms() {
-        return filmRepository.findAll() ;
+        try {
+            return filmRepository.findAll();
+        } catch (Exception e) {
+            log.warn("Error show the all films in the database");
+            return null;
+        }
     }
 
     @Override
     public Film searchFilmById(Long id) {
-        return filmRepository.searchFilmsById(id);
+        try {
+            return filmRepository.searchFilmsById(id);
+        } catch (Exception e) {
+            log.warn("Error search the film by id in the database.");
+            return null;
+        }
     }
 }
