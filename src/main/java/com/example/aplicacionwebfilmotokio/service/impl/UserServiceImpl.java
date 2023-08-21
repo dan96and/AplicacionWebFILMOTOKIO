@@ -1,8 +1,6 @@
 package com.example.aplicacionwebfilmotokio.service.impl;
 
-import com.example.aplicacionwebfilmotokio.domain.Role;
 import com.example.aplicacionwebfilmotokio.domain.User;
-import com.example.aplicacionwebfilmotokio.repository.RoleRepository;
 import com.example.aplicacionwebfilmotokio.repository.UserRepository;
 import com.example.aplicacionwebfilmotokio.service.UserService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,5 @@
 package com.example.aplicacionwebfilmotokio.controller;
 
-import com.example.aplicacionwebfilmotokio.domain.Role;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.service.RoleService;
 import com.example.aplicacionwebfilmotokio.service.UserService;

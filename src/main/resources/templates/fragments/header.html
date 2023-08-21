@@ -1,4 +1,4 @@
-<header class="p-3 bg-dark text-white">
+<header class="p-3 bg-dark text-white" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="d-flex align-items-center">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a th:href="@{/index}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
@@ -6,21 +6,25 @@
                 <img th:src="@{/images/tokioschool_logo.jpg}" alt="Logo de Filmotokio" width="35" height="35">
             </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a th:href="@{/new-film}" class="nav-link px-2 text-white">Nueva película</a></li>
-                <li><a th:href="@{/search-film}" class="nav-link px-2 text-white">Buscar película</a></li>
-                <li><a th:href="@{/new-person}" class="nav-link px-2 text-white">Crear persona</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Crear usuario</a></li>
-            </ul>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 12px; position: absolute; right: 20px;">
-            <img th:src="@{/images/user_logo.png}" width="37" height="37" style="margin-right: 10px">
-            <form method="post" th:action="@{/logout}">
-                <input type="submit" class="btn btn-warning" value="Cerrar sesión" style="margin-right: 10px"/>
-            </form>
-            <a class="btn btn-warning" th:href="@{/login}" style="margin-right: 10px">Inicio de sesión</a>
-            <a class="btn btn-warning" th:href="@{/registration}" style="margin-right: 10px">Registro</a>
-        </div>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a th:href="@{/new-film}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')"
+                   class="nav-link px-2 text-white">Nueva película</a></li>
+            <li><a th:href="@{/search-film}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')"
+                   class="nav-link px-2 text-white">Buscar película</a></li>
+            <li><a th:href="@{/new-person}" sec:authorize="hasAnyAuthority('USER', 'ADMIN')"
+                   class="nav-link px-2 text-white">Crear persona</a></li>
+            <li><a th:href="@{/registration}" class="nav-link px-2 text-white"
+                   sec:authorize="hasAuthority('ADMIN')">Crear usuario</a></li>
+        </ul>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 12px; position: absolute; right: 20px;">
+        <img th:src="@{/images/user_logo.png}" sec:authorize="isAuthenticated()" width="37" height="37" style="margin-right: 10px">
+        <form method="post" th:action="@{/logout}" sec:authorize="isAuthenticated()">
+            <input type="submit" class="btn btn-warning" value="Cerrar sesión" style="margin-right: 10px"/>
+        </form>
+        <a class="btn btn-warning" th:href="@{/login}" sec:authorize="isAnonymous()" style="margin-right: 10px">Inicio de sesión</a>
+        <a class="btn btn-warning" th:href="@{/registration}" sec:authorize="isAnonymous()" style="margin-right: 10px">Registro</a>
+    </div>
 
     </div>
 </header>

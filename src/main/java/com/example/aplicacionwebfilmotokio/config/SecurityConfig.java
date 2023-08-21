@@ -18,10 +18,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configureMvcSecurity(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeRequests((request) -> request
+        http.authorizeRequests((request) -> request
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/login", "/new-user", "/registration", "/index", "/new-person", "/new-film", "/search-film", "/searched-film/{title}", "/film", "/film/{id}", "/image/{poster}").permitAll())
+                        .requestMatchers("/login", "/new-user", "/registration", "/index").permitAll()
+                        .requestMatchers("/new-person", "/new-film", "/search-film", "/searched-film/{title}",
+                                "/film", "/film/{id}", "/image/{titleImage}", "/add-score/{id}", "/film/{id}/succesfull").hasAnyAuthority("ADMIN", "USER"))
 
                 .formLogin((form) -> form
                         .loginPage("/login")
