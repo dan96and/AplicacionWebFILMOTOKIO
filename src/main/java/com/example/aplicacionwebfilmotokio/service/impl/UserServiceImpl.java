@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,5 +41,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         log.info("Returning user from the database");
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void updateLastLogin(LocalDateTime lastLogin, String name) {
+        userRepository.updateLastLogin(lastLogin, name);
     }
 }

@@ -1,6 +1,8 @@
 
 package com.example.aplicacionwebfilmotokio.config;
 
+import com.example.aplicacionwebfilmotokio.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,9 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    UserService userService;
 
     @Bean
     public SecurityFilterChain configureMvcSecurity(HttpSecurity http) throws Exception {
@@ -26,7 +33,12 @@ public class SecurityConfig {
 
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index"))
+                        .successHandler((request, response, authentication) -> {
+                                    userService.updateLastLogin(LocalDateTime.now(), authentication.getName());
+                                    response.sendRedirect("/index");
+                                }
+                        )
+                )
 
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/login"));
