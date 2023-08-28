@@ -7,8 +7,8 @@
 <header th:replace="fragments/header"></header>
 <main style="padding-left: 140px; padding-right: 140px; padding-top:30px; padding-bottom: 60px">
 
-    <div th:if="${registerPersonSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
-        <p th:text="${registerPersonSuccesfull}" style="margin-bottom: 0;"></p>
+    <div th:if="${messageSuccesfull}" class="alert alert-success" style="margin-top: 20px;">
+        <p th:text="${messageSuccesfull}" style="margin-bottom: 0;"></p>
     </div>
 
     <div class="container" style="border: 2px solid #333; padding: 20px;">
@@ -98,17 +98,20 @@
         </div>
     </div>
 
-    <div class="container" style="border: 2px solid #333; padding: 20px; margin-top: 10px">
+    <div class="container" style="border: 2px solid #333; padding: 20px; margin-top: 10px" th:unless="${userWithReview}">
         <div class="row">
             <div class="col-md-6">
                 <h4>Añadir crítica</h4>
+                <form method="post" th:action="@{/new-review/{id} (id=${film.id})}" th:object="${review}">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Título">
+                    <input type="text" class="form-control" placeholder="Título" th:field="*{title}" required>
                 </div>
-                <div class="form-group" style="padding-top: 8px">
-                    <textarea maxlength="255" rows="3" class="form-control" placeholder="Review"></textarea>
-                </div>
-                <button type="submit" class="btn btn-warning" style="margin-top: 8px">Realizar review</button>
+
+                    <div class="form-group" style="padding-top: 8px">
+                        <textarea maxlength="255" rows="3" class="form-control" placeholder="Review" th:field="*{textReview}" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning" style="margin-top: 8px">Realizar review</button>
+                </form>
             </div>
         </div>
     </div>

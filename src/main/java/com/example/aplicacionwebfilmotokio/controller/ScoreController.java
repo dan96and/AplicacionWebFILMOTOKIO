@@ -39,10 +39,10 @@ public class ScoreController {
                 .film(film)
                 .build();
 
-        if(!scoreService.newScore(score)){
-         throw new RuntimeException("Error al añadir el score a la película. Vuelva a intentarlo más tarde");
+        if (!scoreService.newScore(score)) {
+            throw new RuntimeException("Error al añadir el score a la película. Vuelva a intentarlo más tarde");
         }
 
-        return "redirect:/film/" + id + "/succesfull";
+        return "redirect:/film/" + id + "?message=Score+Succesfull";
     }
 }

@@ -15,6 +15,7 @@ public class ExceptionController {
         modelAndView.addObject("message", re.getMessage());
         modelAndView.addObject("url", request.getRequestURL().toString());
         modelAndView.setViewName("error/error");
+//        re.printStackTrace();
         return modelAndView;
     }
 

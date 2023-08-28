@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 public interface UserService {
     Boolean registerUser(User user);
+
     User findUserByUsername(String username);
+
     void updateLastLogin(LocalDateTime lastLogin, String name);
 }
