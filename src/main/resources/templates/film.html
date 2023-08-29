@@ -17,7 +17,7 @@
 
             <div class="col-md-6">
 
-                <h3 th:text="${film.title +' ('+scoreMedia+')'}"></h3>
+                <h3 th:text="${film.title +' ('+scoreMedia+')'}" style="color: dodgerblue;"></h3>
 
                 <b><label>Año: </label></b>
                 <label th:text="${film.year}"></label>
@@ -98,20 +98,36 @@
         </div>
     </div>
 
-    <div class="container" style="border: 2px solid #333; padding: 20px; margin-top: 10px" th:unless="${userWithReview}">
+    <div class="container" style="border: 2px solid #333; padding: 20px; margin-top: 10px"
+         th:unless="${userWithReview}">
         <div class="row">
             <div class="col-md-6">
                 <h4>Añadir crítica</h4>
                 <form method="post" th:action="@{/new-review/{id} (id=${film.id})}" th:object="${review}">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Título" th:field="*{title}" required>
-                </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Título" th:field="*{title}" required>
+                    </div>
 
                     <div class="form-group" style="padding-top: 8px">
-                        <textarea maxlength="255" rows="3" class="form-control" placeholder="Review" th:field="*{textReview}" required></textarea>
+                        <textarea maxlength="255" rows="3" class="form-control" placeholder="Review"
+                                  th:field="*{textReview}" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-warning" style="margin-top: 8px">Realizar review</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col" th:each="review : ${reviews}">
+        <div class="col-md-6" style="border: 2px solid #333; margin-top: 10px; padding: 20px; width: 100%;">
+            <div>
+                <h1 th:text="${review.title}" style="width: 100%; color: dodgerblue">Titulo de la review</h1>
+                <div>
+                    <label th:text="${review.date}" style="width: 100%; color: darkgray;">Fecha de la review</label>
+                </div>
+                <div>
+                    <label th:text="${review.textReview}" style="width: 100%;">Descripción de la review</label>
+                </div>
             </div>
         </div>
     </div>

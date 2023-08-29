@@ -5,6 +5,8 @@ import com.example.aplicacionwebfilmotokio.service.ReviewService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
@@ -18,6 +20,11 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public int getSizeReviewsByUserIdAndFilmId(Long userId, Long filmId) {
-        return restTemplate.getForObject("http://localhost:8090/getReviews?userId=" + userId + "&filmId=" + filmId, Integer.class);
+        return restTemplate.getForObject("http://localhost:8090/getReviewsSize?userId=" + userId + "&filmId=" + filmId, Integer.class);
+    }
+
+    @Override
+    public List<ReviewDTO> getReviews(Long filmId) {
+        return restTemplate.getForObject("http://localhost:8090/getReviews?filmId=" + filmId, List.class);
     }
 }

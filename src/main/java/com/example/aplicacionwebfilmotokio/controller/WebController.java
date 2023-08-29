@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -98,8 +99,8 @@ public class WebController {
 
     }
 
-    @GetMapping("/film/{id}")
-    public String showFilmById(@PathVariable Long id, @RequestParam(name = "message", required = false) String message, Model model) {
+    @GetMapping("/film/{filmId}")
+    public String showFilmById(@PathVariable Long filmId, @RequestParam(name = "message", required = false) String message, Model model) {
 
         model.addAttribute("review", new ReviewDTO());
 
@@ -113,7 +114,7 @@ public class WebController {
         }
 
         //Mostrar los datos de la pelicula
-        Film film = filmService.searchFilmById(id);
+        Film film = filmService.searchFilmById(filmId);
 
         if (film == null) {
             throw new RuntimeException("Error al mostrar la pelicula. Intentelo más tarde.");
@@ -127,7 +128,7 @@ public class WebController {
         model.addAttribute("photographers", film.getPhotographers());
 
         //Revisar si el usuario ha hecho una critica, para no mostrar el componente
-        int size = reviewService.getSizeReviewsByUserIdAndFilmId(userService.findUserByUsername(SecurityConfig.getAuthenticatedUserDetails().getUsername()).getId(), id);
+        int size = reviewService.getSizeReviewsByUserIdAndFilmId(userService.findUserByUsername(SecurityConfig.getAuthenticatedUserDetails().getUsername()).getId(), filmId);
 
         if (size > 0) {
             model.addAttribute("userWithReview", true);
@@ -161,6 +162,10 @@ public class WebController {
         }
 
         model.addAttribute("scoreMedia", scoreMedia);
+
+        //Mostrar las reviews
+        List<ReviewDTO> reviewDTOList = reviewService.getReviews(filmId);
+        model.addAttribute("reviews", reviewDTOList);
 
         return "film";
     }
