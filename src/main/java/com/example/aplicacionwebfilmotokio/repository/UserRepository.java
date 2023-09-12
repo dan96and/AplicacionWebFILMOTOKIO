@@ -16,7 +16,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
+    @Query("update User u set u.token = :token where u.surname = :username")
+    void updateToken(@Param("username") String username, @Param("token") String token);
+
+    @Modifying
+    @Transactional
     @Query(value = "update User u set u.lastLogin = :lastLogin where u.username= :name")
     void updateLastLogin(@Param("lastLogin") LocalDateTime lastLogin, @Param("name") String name);
 
+    @Query("select u.token from User u where u.username =:username")
+    String getTokenByUserUsername(@Param("username") String username);
 }

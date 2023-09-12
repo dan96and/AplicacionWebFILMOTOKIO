@@ -10,4 +10,6 @@ public interface UserService {
     User findUserByUsername(String username);
 
     void updateLastLogin(LocalDateTime lastLogin, String name);
+
+    void updateToken(String name, String token);
 }

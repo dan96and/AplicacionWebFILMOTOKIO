@@ -1,6 +1,8 @@
 package com.example.aplicacionwebfilmotokio.service.impl;
 
+import com.example.aplicacionwebfilmotokio.domain.Role;
 import com.example.aplicacionwebfilmotokio.domain.User;
+import com.example.aplicacionwebfilmotokio.enums.TypePersonEnum;
 import com.example.aplicacionwebfilmotokio.repository.UserRepository;
 import com.example.aplicacionwebfilmotokio.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +48,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateLastLogin(LocalDateTime lastLogin, String name) {
         userRepository.updateLastLogin(lastLogin, name);
+    }
+
+    @Override
+    public void updateToken(String name, String token) {
+        userRepository.updateToken(name, token);
     }
 }

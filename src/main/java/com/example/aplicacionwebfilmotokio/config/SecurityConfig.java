@@ -1,8 +1,8 @@
 
 package com.example.aplicacionwebfilmotokio.config;
 
-import com.example.aplicacionwebfilmotokio.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.aplicacionwebfilmotokio.auth.CustomAuthenticationProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,14 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.time.LocalDateTime;
-
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    UserService userService;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
     @Bean
     public SecurityFilterChain configureMvcSecurity(HttpSecurity http) throws Exception {
@@ -29,16 +27,17 @@ public class SecurityConfig {
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/login", "/new-user", "/registration", "/index").permitAll()
                         .requestMatchers("/new-person", "/new-film", "/search-film", "/searched-film/{title}",
-                                "/film", "/film/{id}", "/image/{titleImage}", "/add-score/{id}", "/film/{id}/succesfull").hasAnyAuthority("ADMIN", "USER"))
+                                "/film", "/film/{id}", "/image/{titleImage}", "/add-score/{id}", "/film/{id}/succesfull",
+                                "/new-review/{id}").hasAnyAuthority("ADMIN", "USER"))
 
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .successHandler((request, response, authentication) -> {
-                                    userService.updateLastLogin(LocalDateTime.now(), authentication.getName());
                                     response.sendRedirect("/index");
                                 }
                         )
                 )
+                .authenticationProvider(customAuthenticationProvider)
 
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/login"));

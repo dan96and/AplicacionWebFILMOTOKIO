@@ -29,6 +29,7 @@ public class ReviewController {
         review.setUserId(idUser);
         review.setFilmId(id);
         review.setDate(LocalDate.now());
+        review.setId(null);
 
         String response = reviewService.newReview(review);
 

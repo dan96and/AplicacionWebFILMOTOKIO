@@ -35,6 +35,8 @@ public class User {
 
     private String image;
 
+    private String token;
+
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
