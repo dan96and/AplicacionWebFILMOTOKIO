@@ -4,7 +4,7 @@ import com.example.aplicacionwebfilmotokio.config.SecurityConfig;
 import com.example.aplicacionwebfilmotokio.dto.ReviewDTO;
 import com.example.aplicacionwebfilmotokio.repository.UserRepository;
 import com.example.aplicacionwebfilmotokio.service.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String urlBase = "http://localhost:8090";
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public String newReview(ReviewDTO reviewDTO) {
@@ -28,22 +28,6 @@ public class ReviewServiceImpl implements ReviewService {
         HttpEntity<ReviewDTO> requestEntity = new HttpEntity<>(reviewDTO, getHeaderWithToken());
 
         return restTemplate.postForObject(urlBase + "/new-review", requestEntity, String.class);
-    }
-
-    @Override
-    public int getSizeReviewsByUserIdAndFilmId(Long userId, Long filmId) {
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlBase + "/getReviewsSize")
-                .queryParam("userId", userId)
-                .queryParam("filmId", filmId);
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(getHeaderWithToken());
-
-        ResponseEntity<Integer> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, Integer.class);
-
-        System.out.println("SIZE: " + responseEntity.getBody());
-
-        return responseEntity.getBody();
     }
 
     @Override

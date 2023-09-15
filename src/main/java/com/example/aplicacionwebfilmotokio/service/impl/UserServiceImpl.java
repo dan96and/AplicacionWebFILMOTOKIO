@@ -1,12 +1,10 @@
 package com.example.aplicacionwebfilmotokio.service.impl;
 
-import com.example.aplicacionwebfilmotokio.domain.Role;
 import com.example.aplicacionwebfilmotokio.domain.User;
-import com.example.aplicacionwebfilmotokio.enums.TypePersonEnum;
 import com.example.aplicacionwebfilmotokio.repository.UserRepository;
 import com.example.aplicacionwebfilmotokio.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +13,10 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    BCryptPasswordEncoder bCryp = new BCryptPasswordEncoder();
-
-    @Autowired
-    UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryp = new BCryptPasswordEncoder();
+    private final UserRepository userRepository;
 
     @Override
     public Boolean registerUser(User user) {

@@ -2,17 +2,17 @@ package com.example.aplicacionwebfilmotokio.controller;
 
 import com.example.aplicacionwebfilmotokio.domain.Person;
 import com.example.aplicacionwebfilmotokio.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequiredArgsConstructor
 public class PersonController {
 
-    @Autowired
-    PersonService personService;
+    private final PersonService personService;
 
     @PostMapping("/new-person")
     ModelAndView newPerson(@ModelAttribute("person") Person person, ModelAndView modelAndView) {

@@ -3,13 +3,14 @@ package com.example.aplicacionwebfilmotokio.service.impl;
 import com.example.aplicacionwebfilmotokio.domain.Role;
 import com.example.aplicacionwebfilmotokio.repository.RoleRepository;
 import com.example.aplicacionwebfilmotokio.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
 
     @Override
     public Role getRoleByName(String roleName) {

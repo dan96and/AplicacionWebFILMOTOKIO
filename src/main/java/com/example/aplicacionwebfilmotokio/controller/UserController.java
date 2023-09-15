@@ -3,6 +3,7 @@ package com.example.aplicacionwebfilmotokio.controller;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.service.RoleService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,13 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @PostMapping("/new-user")
     public ModelAndView newUser(@ModelAttribute("user") @DateTimeFormat(pattern = "yyyy-MM-dd") User user, @RequestParam(value = "role", defaultValue = "USER") String roleName, ModelAndView modelAndView) {

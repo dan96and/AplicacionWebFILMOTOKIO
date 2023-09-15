@@ -3,16 +3,16 @@ package com.example.aplicacionwebfilmotokio.service.impl;
 import com.example.aplicacionwebfilmotokio.domain.Score;
 import com.example.aplicacionwebfilmotokio.repository.ScoreRepository;
 import com.example.aplicacionwebfilmotokio.service.ScoreService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ScoreServiceImpl implements ScoreService {
 
-    @Autowired
-    ScoreRepository scoreRepository;
+    private final ScoreRepository scoreRepository;
 
     @Override
     public Boolean newScore(Score score) {

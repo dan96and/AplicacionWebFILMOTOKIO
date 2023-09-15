@@ -9,7 +9,7 @@ import com.example.aplicacionwebfilmotokio.service.FilmImageService;
 import com.example.aplicacionwebfilmotokio.service.FilmService;
 import com.example.aplicacionwebfilmotokio.service.PersonService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class FilmController {
 
-    @Autowired
-    FilmImageService filmImageService;
-    @Autowired
-    FilmService filmService;
-    @Autowired
-    UserService userService;
-    @Autowired
-    PersonService personService;
+    private final FilmImageService filmImageService;
+    private final FilmService filmService;
+    private final UserService userService;
+    private final PersonService personService;
 
     @PostMapping("/new-film")
     ModelAndView newFilm(@ModelAttribute("film") Film film, @RequestParam("cartel") MultipartFile archive, ModelAndView modelAndView, Model model) {
@@ -53,7 +50,7 @@ public class FilmController {
 
         List<Person> listPerson = personService.allPerson();
 
-        if(listPerson == null){
+        if (listPerson == null) {
             throw new RuntimeException("Error al mostrar la lista de personas. Intentelo más tarde.");
         }
 

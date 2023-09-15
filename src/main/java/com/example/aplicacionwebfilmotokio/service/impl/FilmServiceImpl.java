@@ -4,18 +4,18 @@ import com.example.aplicacionwebfilmotokio.domain.Film;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.repository.FilmRepository;
 import com.example.aplicacionwebfilmotokio.service.FilmService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class FilmServiceImpl implements FilmService {
 
-    @Autowired
-    FilmRepository filmRepository;
+    private final FilmRepository filmRepository;
 
     @Override
     public Boolean saveFilm(Film film, User user) {

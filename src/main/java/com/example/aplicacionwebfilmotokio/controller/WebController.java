@@ -8,7 +8,9 @@ import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.dto.ReviewDTO;
 import com.example.aplicacionwebfilmotokio.enums.TypePersonEnum;
 import com.example.aplicacionwebfilmotokio.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,21 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class WebController {
-    @Autowired
-    PersonService personService;
 
-    @Autowired
-    FilmService filmService;
-
-    @Autowired
-    FilmImageService filmImageService;
-
-    @Autowired
-    ReviewService reviewService;
-
-    @Autowired
-    UserService userService;
+    private final PersonService personService;
+    private final FilmService filmService;
+    private final ReviewService reviewService;
+    private final UserService userService;
 
     @GetMapping("/login")
     public String login() {
@@ -102,7 +96,9 @@ public class WebController {
     public String showFilmById(@PathVariable Long filmId, @RequestParam(name = "message", required = false) String message, Model model) {
         model.addAttribute("review", new ReviewDTO());
 
-        //Revisar si se ha hecho alguna review o score, para mostrar mensaje por pantall
+        UserDetails userAuth = SecurityConfig.getAuthenticatedUserDetails();
+
+        //Revisar si se ha hecho alguna review o score, para mostrar mensaje por pantalla
         if (message != null) {
             if (message.equals("Review Succesfull")) {
                 model.addAttribute("messageSuccesfull", "Critica creada correctamente");
@@ -126,9 +122,13 @@ public class WebController {
         model.addAttribute("photographers", film.getPhotographers());
 
         //Revisar si el usuario ha hecho una critica, para no mostrar el componente
-        int size = reviewService.getSizeReviewsByUserIdAndFilmId(userService.findUserByUsername(SecurityConfig.getAuthenticatedUserDetails().getUsername()).getId(), filmId);
+        List<ReviewDTO> reviews = reviewService.getReviews(filmId);
 
-        if (size > 0) {
+        long idUser = userService.findUserByUsername(userAuth.getUsername()).getId();
+
+        List<ReviewDTO> reviewFilterByUsername = reviews.stream().filter(reviewDTO -> reviewDTO.getUserId() == idUser).toList();
+
+        if (!reviewFilterByUsername.isEmpty()) {
             model.addAttribute("userWithReview", true);
         } else {
             model.addAttribute("userWithReview", false);
@@ -137,7 +137,7 @@ public class WebController {
         //Revisar si el usuario ha puesto una puntuación, para no mostrar el componente
         List<Score> listScore = film.getScores();
         for (Score score : listScore) {
-            if (score.getUser().getUsername().equals(SecurityConfig.getAuthenticatedUserDetails().getUsername())) {
+            if (score.getUser().getUsername().equals(userAuth.getUsername())) {
                 model.addAttribute("userWithScore", true);
                 break;
             } else {

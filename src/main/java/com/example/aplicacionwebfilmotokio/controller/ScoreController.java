@@ -7,6 +7,7 @@ import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.service.FilmService;
 import com.example.aplicacionwebfilmotokio.service.ScoreService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class ScoreController {
-    @Autowired
-    FilmService filmService;
-    @Autowired
-    UserService userService;
-    @Autowired
-    ScoreService scoreService;
+
+   private final FilmService filmService;
+   private final UserService userService;
+   private final ScoreService scoreService;
 
     @PostMapping("/add-score/{id}")
     public String addScore(@PathVariable("id") Long id, @RequestParam("number") String value) {

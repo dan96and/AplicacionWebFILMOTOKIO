@@ -4,7 +4,7 @@ import com.example.aplicacionwebfilmotokio.config.SecurityConfig;
 import com.example.aplicacionwebfilmotokio.dto.ReviewDTO;
 import com.example.aplicacionwebfilmotokio.service.ReviewService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDate;
 
 @Controller
+@RequiredArgsConstructor
 public class ReviewController {
 
-    @Autowired
-    ReviewService reviewService;
-
-    @Autowired
-    UserService userService;
+    private final ReviewService reviewService;
+    private final UserService userService;
 
     @PostMapping("/new-review/{id}")
     String newReview(@ModelAttribute(value = "review") ReviewDTO review, @PathVariable Long id) {

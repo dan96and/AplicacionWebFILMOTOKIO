@@ -7,7 +7,5 @@ import java.util.List;
 public interface ReviewService {
     String newReview(ReviewDTO reviewDTO);
 
-    int getSizeReviewsByUserIdAndFilmId(Long userId, Long filmId);
-
     List<ReviewDTO> getReviews(Long filmId);
 }

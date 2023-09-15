@@ -49,8 +49,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 null,
                 authority);
 
-//        SecurityContextHolder.getContext().setAuthentication(userAuthenticated);
-
         return userAuthenticated;
     }
 
