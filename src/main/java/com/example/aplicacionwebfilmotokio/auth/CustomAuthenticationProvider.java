@@ -3,6 +3,9 @@ package com.example.aplicacionwebfilmotokio.auth;
 import com.example.aplicacionwebfilmotokio.domain.User;
 import com.example.aplicacionwebfilmotokio.service.ApiService;
 import com.example.aplicacionwebfilmotokio.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,13 +37,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(user.getRoles().getName()));
 
-        String token = apiService.loginApi(authentication.getName(), authentication.getCredentials().toString());
-        token = token.substring(10,135);
-        userService.updateToken(authentication.getName(), token);
+        String responseToken = apiService.loginApi(authentication.getName(), authentication.getCredentials().toString());
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseToken);
+            userService.updateToken(authentication.getName(), jsonNode.get("token").asText());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         userService.updateLastLogin(LocalDateTime.now(), authentication.getName());
 
-        Authentication userAuthenticated = new UsernamePasswordAuthenticationToken(
+        return new UsernamePasswordAuthenticationToken(
                 new org.springframework.security.core.userdetails.User(
                         user.getUsername(),
                         user.getPassword(),
@@ -48,12 +57,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                         authority),
                 null,
                 authority);
-
-        return userAuthenticated;
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    public String getSubstringFromToken(String token) {
+        return token.substring(10, 135);
     }
 }

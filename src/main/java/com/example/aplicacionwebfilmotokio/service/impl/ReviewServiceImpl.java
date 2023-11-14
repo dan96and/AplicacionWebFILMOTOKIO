@@ -1,10 +1,13 @@
 package com.example.aplicacionwebfilmotokio.service.impl;
 
+import com.example.aplicacionwebfilmotokio.config.ConfigPropertiesApi;
 import com.example.aplicacionwebfilmotokio.config.SecurityConfig;
 import com.example.aplicacionwebfilmotokio.dto.ReviewDTO;
 import com.example.aplicacionwebfilmotokio.repository.UserRepository;
 import com.example.aplicacionwebfilmotokio.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,10 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String urlBase = "http://localhost:8090";
+
+    @Autowired
+    @Qualifier("configPropertiesApi")
+    private ConfigPropertiesApi api;
 
     private final UserRepository userRepository;
 
@@ -27,18 +33,19 @@ public class ReviewServiceImpl implements ReviewService {
 
         HttpEntity<ReviewDTO> requestEntity = new HttpEntity<>(reviewDTO, getHeaderWithToken());
 
-        return restTemplate.postForObject(urlBase + "/new-review", requestEntity, String.class);
+        return restTemplate.postForObject(api.getUrl() + "/new-review", requestEntity, String.class);
     }
 
     @Override
     public List<ReviewDTO> getReviews(Long filmId) {
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlBase + "/getReviews")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl( api.getUrl() + "/getReviews")
                 .queryParam("filmId", filmId);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(getHeaderWithToken());
 
-        ParameterizedTypeReference<List<ReviewDTO>> responseType = new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<List<ReviewDTO>> responseType = new ParameterizedTypeReference<>() {
+        };
 
         ResponseEntity<List<ReviewDTO>> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, responseType);
 
